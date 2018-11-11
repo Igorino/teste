@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" />
+    <link rel="stylesheet" href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" />
+    <link rel="stylesheet" href="pagina2.css">
+    <style>
+        html, body, #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="#menu">Menu</a>
+        <a href="#Login">Login</a>
+        <a href="#about">Sobre</a>
+    </div>
+    <div class="select">
+
+        <select id="categoria" name="categoria">
+            <option value="categoria">Selecione a categoria</option>
+            <option value=0>Categoria 1</option>
+            <option value="categoria2">Categoria 2</option>
+            <option value="categoria3">Categoria 3</option>
+        </select>
+
+        <select id="produto" name="produto">
+            <option value="produto">Selecione o produto</option>
+            <option value="produto1">Produto 1</option>
+            <option value="produto2">Produto 2</option>
+            <option value="produto3">Produto 3</option>
+        </select>
+
+        <select id="marca" name="marca">
+            <option value="marca">Selecione a marca</option>
+            <option value="marca1">Marca 1</option>
+            <option value="marca2">Marca 2</option>
+            <option value="marca3">Marca 3</option>
+        </select>
+    </div>
+    <div id="container"></div>
+    <script type="text/javascript" charset="utf-8">
+
+        var x = 0;
+
+
+
+        anychart.onDocumentReady(function() {
+            // create column chart
+            var chart = anychart.column();
+
+            // turn on chart animation
+            chart.animation(true);
+
+            // set chart title text settings
+            chart.title('Vendas por mes:');
+
+
+            //x = document.getElementById("categoria1").value;
+            // create area series with passed data
+            var series = chart.column([
+            ['Janeiro', '14670'],
+            ['Fevereiro', '16320'],
+            ['Marco', '20390'],
+            ['Abril', '32900'],
+            ]);
+
+            //series.set(1, 'value') + 1000000;
+
+            // set series tooltip settings
+            series.tooltip().titleFormat('{%X}');
+
+            series.tooltip()
+            .position('center-top')
+            .anchor('center-bottom')
+            .offsetX(0)
+            .offsetY(5)
+            .format('${%Value}{groupsSeparator: }');
+
+            // set scale minimum
+            chart.yScale().minimum(0);
+
+            // set yAxis labels formatter
+            chart.yAxis().labels().format('${%Value}{groupsSeparator: }');
+
+            // tooltips position and interactivity settings
+            chart.tooltip().positionMode('point');
+            chart.interactivity().hoverMode('by-x');
+
+            // axes titles
+            chart.xAxis().title('Mes');
+            chart.yAxis().title('Vendas');
+
+            // set container id for the chart
+            chart.container('container');
+
+            // initiate chart drawing
+            chart.draw();
+            chart.update();
+        } );
+
+        document.getElementById("hue").addEventListener("click", mudaCategoria(1));
+
+
+
+        function hue(){
+            x = 1000;
+        }
+        function mudaCategoria(i){
+            if (i == 1){
+                var series = chart.column([
+                ['Janeiro', '0'],
+                ['Fevereiro', '94190'],
+                ['Marco', '102610'],
+                ['Abril', '110430'],
+                ]);
+                return 3080;
+            } else if (i == 2){
+                return 2590;
+            } else if (i == 3){
+                return 1205;
+            } else {
+                return 0;
+            }
+
+        }
+    </script>
+</body>
+</html>
